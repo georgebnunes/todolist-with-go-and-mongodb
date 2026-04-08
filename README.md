@@ -24,3 +24,12 @@ todolist-with-go-and-mongodb/
 ├── docker-compose.yml
 └── go.mod
 ```
+
+## Endpoints
+| Method | Route | Description |
+| :--- | :--- | :--- |
+| **POST** | `/todos` | Create a todo |
+| **GET** | `/todos` | List all todos |
+| **GET** | `/todos/:id` | Get one todo |
+| **PUT** | `/todos/:id` | Update a todo |
+| **DELETE** | `/todos/:id` | Delete a todo |
