@@ -23,7 +23,11 @@ func NewTodoHandler(service service.TodoService) *TodoHandler {
 }
 
 func (h *TodoHandler) RegisterRoutes(mux *http.ServeMux) {
-
+	mux.HandleFunc("POST /todos", h.Create)
+	mux.HandleFunc("GET /todos", h.FindAll)
+	mux.HandleFunc("GET /todos/{id}", h.FindByID)
+	mux.HandleFunc("PUT /todos/{id}", h.Update)
+	mux.HandleFunc("DELETE /todos/{id}", h.Delete)
 }
 
 // -- Helpers --
