@@ -56,7 +56,7 @@ func (r *mongoTodoRepo) FindAll(ctx context.Context) ([]domain.Todo, error) {
 		return nil, err
 	}
 
-	if todos == nil {
+	if len(todos) == 0 {
 		return []domain.Todo{}, nil
 	}
 
@@ -68,7 +68,7 @@ func (r *mongoTodoRepo) FindByID(ctx context.Context, id primitive.ObjectID) (do
 
 	err := r.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&todo)
 	if err != nil {
-		return domain.Todo{}, nil
+		return domain.Todo{}, err
 	}
 
 	return todo, nil
