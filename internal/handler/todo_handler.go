@@ -45,7 +45,7 @@ func (h *TodoHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.WriteJSON(w, http.StatusCreated, created)
+	helper.WriteJSON(w, http.StatusCreated, map[string]any{"data": created})
 }
 
 func (h *TodoHandler) FindAll(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +58,7 @@ func (h *TodoHandler) FindAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.WriteJSON(w, http.StatusOK, todos)
+	helper.WriteJSON(w, http.StatusOK, map[string]any{"data": todos})
 }
 
 func (h *TodoHandler) FindByID(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +73,7 @@ func (h *TodoHandler) FindByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.WriteJSON(w, http.StatusOK, todo)
+	helper.WriteJSON(w, http.StatusOK, map[string]any{"data": todo})
 }
 
 func (h *TodoHandler) Update(w http.ResponseWriter, r *http.Request) {
@@ -94,7 +94,7 @@ func (h *TodoHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.WriteJSON(w, http.StatusOK, updated)
+	helper.WriteJSON(w, http.StatusOK, map[string]any{"data": updated})
 }
 
 func (h *TodoHandler) Delete(w http.ResponseWriter, r *http.Request) {

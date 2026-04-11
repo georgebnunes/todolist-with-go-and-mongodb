@@ -56,6 +56,10 @@ func (r *mongoTodoRepo) FindAll(ctx context.Context) ([]domain.Todo, error) {
 		return nil, err
 	}
 
+	if todos == nil {
+		return []domain.Todo{}, nil
+	}
+
 	return todos, nil
 }
 
