@@ -33,3 +33,10 @@ todolist-with-go-and-mongodb/
 | **GET** | `/todos/:id` | Get one todo |
 | **PUT** | `/todos/:id` | Update a todo |
 | **DELETE** | `/todos/:id` | Delete a todo |
+
+## Libs used for this project
+
+| Name | Description | Download command |
+| :--- | :--- | :--- |
+| **mongo-driver** | official MongoDB driver for Go | `go get go.mongodb.org/mongo-driver/mongo` |
+| **godotenv** |  loads your `.env` file into environment variables | `go get github.com/joho/godotenv` |
