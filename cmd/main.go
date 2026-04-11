@@ -8,6 +8,7 @@ import (
 
 	"github.com/georgebnunes/todolist-with-go-and-mongodb/config"
 	"github.com/georgebnunes/todolist-with-go-and-mongodb/internal/handler"
+	"github.com/georgebnunes/todolist-with-go-and-mongodb/internal/middleware"
 	"github.com/georgebnunes/todolist-with-go-and-mongodb/internal/repository"
 	"github.com/georgebnunes/todolist-with-go-and-mongodb/internal/service"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -43,5 +44,5 @@ func main() {
 	todoHandler.RegisterRoutes(mux)
 
 	log.Printf("Server running on port %s", cfg.ServerPort)
-	log.Fatal(http.ListenAndServe(":"+cfg.ServerPort, mux))
+	log.Fatal(http.ListenAndServe(":"+cfg.ServerPort, middleware.RequestLogger(mux)))
 }
