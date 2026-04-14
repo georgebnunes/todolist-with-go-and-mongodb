@@ -40,3 +40,4 @@ todolist-with-go-and-mongodb/
 | :--- | :--- | :--- |
 | **mongo-driver** | official MongoDB driver for Go | `go get go.mongodb.org/mongo-driver/mongo` |
 | **godotenv** |  loads your `.env` file into environment variables | `go get github.com/joho/godotenv` |
+| **uuid** |  generates uuid using Go | `go get github.com/google/uuid` |
