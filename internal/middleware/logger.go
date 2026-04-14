@@ -1,26 +1,50 @@
 package middleware
 
 import (
-	"fmt"
+	"context"
+	"log"
 	"net/http"
+	"time"
+
+	"github.com/google/uuid"
 )
+
+type contextKey string
+
+const requestIDKey contextKey = "requestID"
+
+type responseWriter struct {
+	http.ResponseWriter
+	statusCode int
+}
+
+func newResponseWriter(w http.ResponseWriter) *responseWriter {
+	return &responseWriter{ResponseWriter: w, statusCode: http.StatusOK}
+}
+
+func (rw *responseWriter) WriteHeader(code int) {
+	rw.statusCode = code
+	rw.ResponseWriter.WriteHeader(code)
+}
 
 func RequestLogger(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		fmt.Println("=== Incoming Request ===")
-		fmt.Printf("Method  : %s\n", r.Method)
-		fmt.Printf("URL     : %s\n", r.URL.Path)
-		fmt.Println("Headers:")
+		requestID := uuid.New().String()
+		start := time.Now()
 
-		for key, values := range r.Header {
-			for _, value := range values {
-				fmt.Printf("   %s: %s\n", key, value)
-			}
-		}
+		ctx := context.WithValue(r.Context(), requestIDKey, requestID)
+		r = r.WithContext(ctx)
 
-		fmt.Println("======================")
+		wrapped := newResponseWriter(w)
 
-		next.ServeHTTP(w, r)
+		next.ServeHTTP(wrapped, r)
+
+		log.Printf("[%s] %s %s | status: %d | latency: %s",
+			requestID,
+			r.Method,
+			r.URL.Path,
+			wrapped.statusCode,
+			time.Since(start))
 	})
 }
